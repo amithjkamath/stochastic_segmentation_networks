@@ -47,7 +47,7 @@ class StochasticDeepMedic(DeepMedic):
         cov_factor = cov_factor.flatten(2, 3)
         cov_factor = cov_factor.transpose(1, 2)
 
-        # covariance in the background tens to blow up to infinity, hence set to 0 outside the ROI
+        # covariance in the background tends to blow up to infinity, hence set to 0 outside the ROI
         mask = kwargs['sampling_mask']
         mask = mask.unsqueeze(1).expand((batch_size, self.num_classes) + mask.shape[1:]).reshape(batch_size, -1)
         cov_factor = cov_factor * mask.unsqueeze(-1)

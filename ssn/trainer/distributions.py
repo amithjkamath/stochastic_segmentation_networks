@@ -5,7 +5,7 @@ from typing import Tuple
 
 class ReshapedDistribution(td.Distribution):
     def __init__(self, base_distribution: td.Distribution, new_event_shape: Tuple[int, ...]):
-        super().__init__(batch_shape=base_distribution.batch_shape, event_shape=new_event_shape)
+        super().__init__(batch_shape=base_distribution.batch_shape, event_shape=new_event_shape, validate_args=False)
         self.base_distribution = base_distribution
         self.new_shape = base_distribution.batch_shape + new_event_shape
 

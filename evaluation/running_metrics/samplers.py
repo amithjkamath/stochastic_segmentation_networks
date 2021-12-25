@@ -66,16 +66,16 @@ class LowRankMultivariateNormalRandomSampler(Sampler):
         shape = logit_mean.shape
         num_classes = shape[0]
         rank = int(cov_factor.shape[0] / num_classes)
-        logit_mean = logit_mean.view(-1)
-        cov_diag = cov_diag.view(-1)
-        cov_factor = cov_factor.view((rank, -1)).transpose(1, 0)
+        logit_mean = logit_mean.reshape(-1)
+        cov_diag = cov_diag.reshape(-1)
+        cov_factor = cov_factor.reshape((rank, -1)).transpose(1, 0)
         epsilon = 1e-3
         dist = td.LowRankMultivariateNormal(loc=logit_mean, cov_factor=cov_factor, cov_diag=cov_diag + epsilon)
         return dist, shape, rank
 
     def __call__(self, num_samples):
         logit_samples = self.dist.sample([num_samples])
-        logit_samples = logit_samples.view((num_samples,) + self.shape)
+        logit_samples = logit_samples.reshape((num_samples,) + self.shape)
         prob_maps = torch.softmax(logit_samples, dim=1)
         samples = torch.argmax(logit_samples, dim=1)
         return tensors_to_sitk_images(samples), samples, prob_maps
@@ -100,7 +100,7 @@ class LowRankMultivariateNormalTemperatureScaledRandomSampler(LowRankMultivariat
         factor_direction = _batch_mv(self.dist._unbroadcasted_cov_factor, eps_w)
         diag_direction = self.dist._unbroadcasted_cov_diag.sqrt() * eps_d
         logit_samples = self.dist.loc + factor_direction + diag_direction
-        logit_samples = logit_samples.view((num_samples,) + self.shape)
+        logit_samples = logit_samples.reshape((num_samples,) + self.shape)
         prob_maps = torch.softmax(logit_samples, dim=1)
         samples = torch.argmax(logit_samples, dim=1)
         return tensors_to_sitk_images(samples), samples, prob_maps
@@ -135,7 +135,7 @@ class LowRankMultivariateNormalWeightedSampler(LowRankMultivariateNormalRandomSa
         class_weights = torch.repeat_interleave(class_weights, spatial_size)
         logit_samples = self.dist.loc + class_weights * (factor_direction + diag_direction)
 
-        logit_samples = logit_samples.view((-1,) + self.shape)
+        logit_samples = logit_samples.reshape((-1,) + self.shape)
         prob_maps = torch.softmax(logit_samples, dim=1)
         samples = torch.argmax(logit_samples, dim=1)
         return tensors_to_sitk_images(samples), samples, prob_maps
@@ -166,4 +166,4 @@ class LowRankMultivariateNormalClassWeightedRangeSampler(LowRankMultivariateNorm
         samples = torch.argmax(prob_maps, dim=2)
         sitk_samples = [sitk.GetImageFromArray(sample.cpu().numpy().astype(np.uint8))
                         for sample in samples.permute(1, 2, 3, 4, 0)]
-        return sitk_samples, samples.view((-1,) + samples.shape[2:]), prob_maps.view((-1,) + prob_maps.shape[2:])
+        return sitk_samples, samples.reshape((-1,) + samples.shape[2:]), prob_maps.reshape((-1,) + prob_maps.shape[2:])

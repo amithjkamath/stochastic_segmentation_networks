@@ -1,0 +1,60 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "preprocess",
+            "type": "python",
+            "request": "launch",
+            "program": "/home/akamath/src/stochastic_segmentation_networks/etc/custom_preprocessing.py",
+            "console": "integratedTerminal",
+            "args": ["--input-dir",  "/home/akamath/data/bratumia-embc2022/ground_truth/", 
+                     "--output-dir", "/home/akamath/data/bratumia-embc2022/proprocessed-2412"]
+        },        
+        {
+            "name": "train",
+            "type": "python",
+            "request": "launch",
+            "program": "/home/akamath/src/stochastic_segmentation_networks/ssn/train.py",
+            "console": "integratedTerminal",
+            "args": ["--job-dir", "/home/akamath/src/stochastic_segmentation_networks/jobs/trainRun2412", 
+                     "--config-file",    "/home/akamath/src/stochastic_segmentation_networks/etc/bratumia-stochasticdeepmedic.json", 
+                     "--train-csv-path", "/home/akamath/data/bratumia-embc2022/proprocessed-2412/assets/data_index_train.csv", 
+                     "--valid-csv-path", "/home/akamath/data/bratumia-embc2022/proprocessed-2412/assets/data_index_valid.csv", 
+                     "--num-epochs", "1000", 
+                     "--device", "0", 
+                     "--random-seeds", "2"]
+        }, 
+        {
+            "name": "inference",
+            "type": "python",
+            "request": "launch",
+            "program": "/home/akamath/src/AlternativeSeg_RMungerThesis/models/ssn/ssn/inference.py",
+            "console": "integratedTerminal",
+            "args": ["--job-dir", "/home/akamath/src/stochastic_segmentation_networks/jobs/trainRun2412/test", 
+                     "--config-file",    "/home/akamath/src/stochastic_segmentation_networks/etc/bratumia-stochasticdeepmedic.json", 
+                     "--test-csv-path", "/home/akamath/data/bratumia-embc2022/proprocessed-2412/assets/data_index_test.csv", 
+                     "--device", "0", 
+                     "--saved-model-paths", "models/ssn/assets/saved_models/model_last.torch_model"]
+        },
+        {
+            "name": "evaluate",
+            "type": "python",
+            "request": "launch",
+            "program": "/home/akamath/src/AlternativeSeg_RMungerThesis/models/ssn/evaluation/evaluate.py",
+            "console": "integratedTerminal",
+            "args": ["--path-to-prediction-csv", "/home/akamath/src/stochastic_segmentation_networks/jobs/trainRun2412/test/predictions/prediction.csv"]
+        },
+        {
+            "name": "generate_samples",
+            "type": "python",
+            "request": "launch",
+            "program": "/home/akamath/src/AlternativeSeg_RMungerThesis/models/ssn/evaluation/generate_samples.py",
+            "console": "integratedTerminal",
+            "args": ["--path-to-prediction-csv", "/home/akamath/src/stochastic_segmentation_networks/jobs/trainRun2412/test/predictions/prediction.csv", 
+                     "--num-samples", "200"]
+        }
+    ]
+}

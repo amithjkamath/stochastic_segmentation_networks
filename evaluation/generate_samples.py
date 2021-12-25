@@ -129,4 +129,5 @@ if __name__ == '__main__':
     make_thumbs = parse_args.make_thumbs
     csv_path = parse_args.path_to_prediction_csv
     deterministic = bool(parse_args.is_deterministic)
-    evaluate(csv_path, deterministic, detailed, make_thumbs)
+    num_samples = parse_args.num_samples
+    evaluate(csv_path, deterministic, detailed, make_thumbs, num_samples)
