@@ -25,7 +25,7 @@
                      "--valid-csv-path", "/home/akamath/data/bratumia-embc2022/proprocessed-2412/assets/data_index_valid.csv", 
                      "--num-epochs", "1000", 
                      "--device", "0", 
-                     "--random-seeds", "2"]
+                     "--random-seeds", "3"]
         }, 
         {
             "name": "inference",
