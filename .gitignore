@@ -7,4 +7,3 @@ _unused
 *.nii
 .DS_Store
 jobs/*
-etc/*
