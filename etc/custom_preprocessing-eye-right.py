@@ -28,9 +28,9 @@ def fix_segmentation_labels(seg):
     array[array == 1] = 0  # Brainstem
     
     array[array == 2] = 0  # Make 2 empty to ignore it.
-    array[array == 3] = 1  # CTV is 1.
-    array[array == 4] = 0  # make this 0 to ignote it.
-    array[array == 5] = 0  # GTV is 2.
+    array[array == 3] = 0  # make this 0 to ignore it.
+    array[array == 4] = 0  # make this 0 to ignore it.
+    array[array == 5] = 1  # eye right is 1.
     
     array[array >= 2] = 0  # Make all others empty.
     new_seg = sitk.GetImageFromArray(array)
