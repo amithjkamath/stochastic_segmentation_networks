@@ -12,7 +12,7 @@ from visualisation.slice_visualizer import MostLoadedSliceVisualiser
 from metrics.distribution_statistics import DistributionStatistics
 import argparse
 
-class_names = ['background', 'brainstem'] #'non-enhancing tumor', 'oedema', 'enhancing tumor']
+class_names = ['background', 'optic-chiasm'] #'non-enhancing tumor', 'oedema', 'enhancing tumor']
 class_mergers = None #{'tumor core': {'non-enhancing tumor', 'enhancing tumor'}}
 DEVICE = 0
 
