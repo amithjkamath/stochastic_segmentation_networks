@@ -8,10 +8,10 @@
             "name": "preprocess",
             "type": "python",
             "request": "launch",
-            "program": "/home/akamath/src/stochastic_segmentation_networks/etc/custom_preprocessing-gtv.py",
+            "program": "/home/akamath/src/stochastic_segmentation_networks/etc/custom_preprocessing-brainstem-EE.py",
             "console": "integratedTerminal",
             "args": ["--input-dir",  "/home/akamath/data/bratumia-embc2022/ground_truth/", 
-                     "--output-dir", "/home/akamath/data/bratumia-embc2022/proprocessed-2912"]
+                     "--output-dir", "/home/akamath/data/bratumia-embc2022/preprocessed-brainstem-ee"]
         },        
         {
             "name": "train",
@@ -19,13 +19,13 @@
             "request": "launch",
             "program": "/home/akamath/src/stochastic_segmentation_networks/ssn/train.py",
             "console": "integratedTerminal",
-            "args": ["--job-dir", "/home/akamath/src/stochastic_segmentation_networks/jobs/trainRun2912", 
+            "args": ["--job-dir", "/home/akamath/src/stochastic_segmentation_networks/jobs/preprocessed-brainstem-ee", 
                      "--config-file",    "/home/akamath/src/stochastic_segmentation_networks/etc/bratumia-stochasticdeepmedic-single.json", 
-                     "--train-csv-path", "/home/akamath/data/bratumia-embc2022/proprocessed-2912/assets/data_index_train.csv", 
-                     "--valid-csv-path", "/home/akamath/data/bratumia-embc2022/proprocessed-2912/assets/data_index_valid.csv", 
+                     "--train-csv-path", "/home/akamath/data/bratumia-embc2022/preprocessed-brainstem-ee/assets/data_index_train.csv", 
+                     "--valid-csv-path", "/home/akamath/data/bratumia-embc2022/preprocessed-brainstem-ee/assets/data_index_valid.csv", 
                      "--num-epochs", "1000", 
                      "--device", "0", 
-                     "--random-seeds", "3"]
+                     "--random-seeds", "1"]
         }, 
         {
             "name": "inference",
@@ -33,11 +33,11 @@
             "request": "launch",
             "program": "/home/akamath/src/stochastic_segmentation_networks/ssn/inference.py",
             "console": "integratedTerminal",
-            "args": ["--job-dir", "/home/akamath/src/stochastic_segmentation_networks/jobs/trainRun2912/test", 
+            "args": ["--job-dir", "/home/akamath/src/stochastic_segmentation_networks/jobs/preprocessed-brainstem-ee/test", 
                      "--config-file",    "/home/akamath/src/stochastic_segmentation_networks/etc/bratumia-stochasticdeepmedic-single.json", 
-                     "--test-csv-path", "/home/akamath/data/bratumia-embc2022/proprocessed-2912/assets/data_index_test.csv", 
+                     "--test-csv-path", "/home/akamath/data/bratumia-embc2022/preprocessed-brainstem-ee/assets/data_index_test.csv", 
                      "--device", "0", 
-                     "--saved-model-paths", "/home/akamath/src/stochastic_segmentation_networks/jobs/trainRun2912/random_seed_3/saved_models/model_240.torch_model"]
+                     "--saved-model-paths", "/home/akamath/src/stochastic_segmentation_networks/jobs/preprocessed-brainstem-ee/random_seed_1/saved_models/model_240.torch_model"]
         },
         {
             "name": "evaluate",
@@ -45,7 +45,7 @@
             "request": "launch",
             "program": "/home/akamath/src/stochastic_segmentation_networks/evaluation/evaluate.py",
             "console": "integratedTerminal",
-            "args": ["--path-to-prediction-csv", "/home/akamath/src/stochastic_segmentation_networks/jobs/trainRun2912/test/predictions/prediction.csv"]
+            "args": ["--path-to-prediction-csv", "/home/akamath/src/stochastic_segmentation_networks/jobs/preprocessed-brainstem-ee/test/predictions/prediction.csv"]
         },
         {
             "name": "generate_samples",
@@ -53,7 +53,7 @@
             "request": "launch",
             "program": "/home/akamath/src/stochastic_segmentation_networks/evaluation/generate_samples.py",
             "console": "integratedTerminal",
-            "args": ["--path-to-prediction-csv", "/home/akamath/src/stochastic_segmentation_networks/jobs/trainRun2912/test/predictions/prediction.csv", 
+            "args": ["--path-to-prediction-csv", "/home/akamath/src/stochastic_segmentation_networks/jobs/preprocessed-brainstem-ee/test/predictions/prediction.csv", 
                      "--num-samples", "200"]
         }
     ]

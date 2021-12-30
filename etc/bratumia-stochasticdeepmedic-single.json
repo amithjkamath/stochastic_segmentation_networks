@@ -10,7 +10,7 @@
 	},
 	"data": {
 		"task": "segmentation",
-		"class_names": ["Background", "GTV"],
+		"class_names": ["Background", "Brainstem"],
 		"channels": ["FLAIR", "T1w", "T1c", "T2w"],
 		"target": "seg",
 		"sampling_mask": "sampling_mask",
