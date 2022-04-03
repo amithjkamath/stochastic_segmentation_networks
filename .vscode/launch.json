@@ -8,36 +8,56 @@
             "name": "preprocess",
             "type": "python",
             "request": "launch",
-            "program": "/home/akamath/src/stochastic_segmentation_networks/etc/custom_preprocessing-opticchiasm-EE.py",
+            "program": "/home/akamath/src/stochastic_segmentation_networks/etc/custom_preprocessing.py",
             "console": "integratedTerminal",
-            "args": ["--input-dir",  "/home/akamath/data/bratumia-embc2022/ground_truth/", 
-                     "--output-dir", "/home/akamath/data/bratumia-embc2022/preprocessed-opticchiasm-ee"]
-        },        
+            "args": [
+                "--input-dir",
+                "/home/akamath/data/insel/ground_truth/",
+                "--output-dir",
+                "/home/akamath/data/insel-midl2022/preprocessed"
+            ]
+        },
         {
             "name": "train",
             "type": "python",
             "request": "launch",
             "program": "/home/akamath/src/stochastic_segmentation_networks/ssn/train.py",
             "console": "integratedTerminal",
-            "args": ["--job-dir", "/home/akamath/src/stochastic_segmentation_networks/jobs/preprocessed-opticchiasm-ee", 
-                     "--config-file",    "/home/akamath/src/stochastic_segmentation_networks/etc/bratumia-stochasticdeepmedic-single.json", 
-                     "--train-csv-path", "/home/akamath/data/bratumia-embc2022/preprocessed-opticchiasm-ee/assets/data_index_train.csv", 
-                     "--valid-csv-path", "/home/akamath/data/bratumia-embc2022/preprocessed-opticchiasm-ee/assets/data_index_valid.csv", 
-                     "--num-epochs", "1000", 
-                     "--device", "0", 
-                     "--random-seeds", "1"]
-        }, 
+            "args": [
+                "--job-dir",
+                "/home/akamath/src/stochastic_segmentation_networks/jobs/preprocessed-midl-apr3",
+                "--config-file",
+                "/home/akamath/src/stochastic_segmentation_networks/etc/bratumia-stochasticdeepmedic.json",
+                "--train-csv-path",
+                "/home/akamath/data/insel-midl2022/preprocessed/assets/data_index_train.csv",
+                "--valid-csv-path",
+                "/home/akamath/data/insel-midl2022/preprocessed/assets/data_index_valid.csv",
+                "--num-epochs",
+                "1000",
+                "--device",
+                "0",
+                "--random-seeds",
+                "42"
+            ]
+        },
         {
             "name": "inference",
             "type": "python",
             "request": "launch",
             "program": "/home/akamath/src/stochastic_segmentation_networks/ssn/inference.py",
             "console": "integratedTerminal",
-            "args": ["--job-dir", "/home/akamath/src/stochastic_segmentation_networks/jobs/preprocessed-opticchiasm-ee/test", 
-                     "--config-file",    "/home/akamath/src/stochastic_segmentation_networks/etc/bratumia-stochasticdeepmedic-single.json", 
-                     "--test-csv-path", "/home/akamath/data/bratumia-embc2022/preprocessed-opticchiasm-ee/assets/data_index_test.csv", 
-                     "--device", "0", 
-                     "--saved-model-paths", "/home/akamath/src/stochastic_segmentation_networks/jobs/preprocessed-opticchiasm-ee/random_seed_1/saved_models/model_240.torch_model"]
+            "args": [
+                "--job-dir",
+                "/home/akamath/src/stochastic_segmentation_networks/jobs/roberto-model/inference",
+                "--config-file",
+                "/home/akamath/src/stochastic_segmentation_networks/etc/bratumia-stochasticdeepmedic.json",
+                "--test-csv-path",
+                "/home/akamath/src/stochastic_segmentation_networks/jobs/roberto-model/assets_roberto/data_index_test.csv",
+                "--device",
+                "0",
+                "--saved-model-paths",
+                "/home/akamath/src/stochastic_segmentation_networks/jobs/roberto-model/saved_models/model_last.torch_model"
+            ]
         },
         {
             "name": "evaluate",
@@ -45,7 +65,10 @@
             "request": "launch",
             "program": "/home/akamath/src/stochastic_segmentation_networks/evaluation/evaluate.py",
             "console": "integratedTerminal",
-            "args": ["--path-to-prediction-csv", "/home/akamath/src/stochastic_segmentation_networks/jobs/preprocessed-opticchiasm-ee/test/predictions/prediction.csv"]
+            "args": [
+                "--path-to-prediction-csv",
+                "/home/akamath/src/stochastic_segmentation_networks/jobs/roberto-model/inference/predictions/prediction.csv"
+            ]
         },
         {
             "name": "generate_samples",
@@ -53,8 +76,12 @@
             "request": "launch",
             "program": "/home/akamath/src/stochastic_segmentation_networks/evaluation/generate_samples.py",
             "console": "integratedTerminal",
-            "args": ["--path-to-prediction-csv", "/home/akamath/src/stochastic_segmentation_networks/jobs/preprocessed-opticchiasm-ee/test/predictions/prediction.csv", 
-                     "--num-samples", "200"]
+            "args": [
+                "--path-to-prediction-csv",
+                "/home/akamath/src/stochastic_segmentation_networks/jobs/preprocessed-midl-apr3/test/predictions/prediction.csv",
+                "--num-samples",
+                "200"
+            ]
         }
     ]
 }

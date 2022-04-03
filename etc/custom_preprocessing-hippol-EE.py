@@ -25,12 +25,8 @@ def z_score_normalisation(channel, brain_mask, cutoff_percentiles=(5., 95.), cut
 def fix_segmentation_labels(seg):
     array = sitk.GetArrayFromImage(seg)
     array[array == 0] = 0  # Background
-    array[array == 1] = 0  # Brainstem
-    
-    array[array == 2] = 0  # Make 2 empty to ignore it.
-    array[array == 3] = 0  # make this 0 to ignore it.
-    array[array == 4] = 0  # make this 0 to ignore it.
-    array[array == 5] = 1  # eye right is 1.
+    array[array == 1] = 0  # Make Brainstem empty.
+    array[array == 6] = 1  # Make Hippocampus Left 1.
     
     array[array >= 2] = 0  # Make all others empty.
     new_seg = sitk.GetImageFromArray(array)
@@ -46,7 +42,7 @@ def preprocess(input_dir, output_dir):
         print(id_)
         s_add = '_reg_resampled_final'
 
-        seg = fix_segmentation_labels(sitk.ReadImage(os.path.join(input_dir, id_) + '_labelmask_all_final.nii.gz'))
+        seg = fix_segmentation_labels(sitk.ReadImage(os.path.join(input_dir, id_) + '_labelmask_EE_final.nii.gz'))
         output_path = os.path.join(output_dir, id_) + f'_seg.nii.gz'
         output_dataframe.loc[id_, 'seg'] = output_path
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
