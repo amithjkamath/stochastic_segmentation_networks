@@ -5,58 +5,94 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "preprocess",
+            "name": "preprocess-qubiq",
             "type": "python",
             "request": "launch",
-            "program": "/home/akamath/src/stochastic_segmentation_networks/etc/custom_preprocessing.py",
+            "program": "/home/akamath/src/stochastic_segmentation_networks/etc/custom_preprocessing-qubiq-brain-growth.py",
             "console": "integratedTerminal",
             "args": [
                 "--input-dir",
-                "/home/akamath/data/insel/ground_truth/",
+                "/home/akamath/Documents/explore-qubiq/data/processed",
                 "--output-dir",
-                "/home/akamath/data/insel-midl2022/preprocessed"
+                "/home/akamath/Documents/explore-qubiq/data/ssn"
             ]
         },
         {
-            "name": "train",
+            "name": "preprocess",
+            "type": "python",
+            "request": "launch",
+            "program": "/home/akamath/src/stochastic_segmentation_networks/etc/custom_preprocessing-MV-hippocampi.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--input-dir",
+                "/home/akamath/data/insel/ground_truth_oar/",
+                "--output-dir",
+                "/home/akamath/data/insel/variation/preprocessed-MV-hippocampi"
+            ]
+        },
+        {
+            "name": "train-qubiq-brain-growth",
             "type": "python",
             "request": "launch",
             "program": "/home/akamath/src/stochastic_segmentation_networks/ssn/train.py",
             "console": "integratedTerminal",
             "args": [
                 "--job-dir",
-                "/home/akamath/src/stochastic_segmentation_networks/jobs/preprocessed-midl-apr3",
+                "/home/akamath/Documents/explore-qubiq/data/jobs",
                 "--config-file",
-                "/home/akamath/src/stochastic_segmentation_networks/etc/bratumia-stochasticdeepmedic.json",
+                "/home/akamath/src/stochastic_segmentation_networks/etc/qubiq-braingrowth-stochasticdeepmedic.json",
                 "--train-csv-path",
-                "/home/akamath/data/insel-midl2022/preprocessed/assets/data_index_train.csv",
+                "/home/akamath/Documents/explore-qubiq/data/ssn/assets/data_index_train.csv",
                 "--valid-csv-path",
-                "/home/akamath/data/insel-midl2022/preprocessed/assets/data_index_valid.csv",
+                "/home/akamath/Documents/explore-qubiq/data/ssn/assets/data_index_valid.csv",
                 "--num-epochs",
-                "1000",
+                "400",
                 "--device",
                 "0",
                 "--random-seeds",
-                "42"
+                "13"
+            ]
+        },
+        {
+            "name": "train",
+            "type": "python",
+            "request": "launch",
+            "program": "/home/akamath/Documents/stochastic_segmentation_networks/ssn/train.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--job-dir",
+                "/home/akamath/Desktop/mv_brainstem",
+                "--config-file",
+                "/home/akamath/Documents/stochastic_segmentation_networks/etc/stochastic-deepmedic.json",
+                "--train-csv-path",
+                "/home/akamath/Desktop/ssn_data/assets/data_index_train.csv",
+                "--valid-csv-path",
+                "/home/akamath/Desktop/ssn_data/assets/data_index_valid.csv",
+                "--num-epochs",
+                "400",
+                "--device",
+                "0",
+                "--random-seeds",
+                "1"
             ]
         },
         {
             "name": "inference",
             "type": "python",
             "request": "launch",
-            "program": "/home/akamath/src/stochastic_segmentation_networks/ssn/inference.py",
+            "program": "/home/akamath/Documents/stochastic_segmentation_networks/ssn/inference.py",
             "console": "integratedTerminal",
             "args": [
                 "--job-dir",
-                "/home/akamath/src/stochastic_segmentation_networks/jobs/roberto-model/inference",
+                "/home/akamath/Desktop/mv_brainstem",
                 "--config-file",
-                "/home/akamath/src/stochastic_segmentation_networks/etc/bratumia-stochasticdeepmedic.json",
+                "/home/akamath/Documents/stochastic_segmentation_networks/etc/stochastic-deepmedic.json",
                 "--test-csv-path",
-                "/home/akamath/src/stochastic_segmentation_networks/jobs/roberto-model/assets_roberto/data_index_test.csv",
+                "/home/akamath/Desktop/ssn_data/assets/data_index_test.csv",
                 "--device",
                 "0",
                 "--saved-model-paths",
-                "/home/akamath/src/stochastic_segmentation_networks/jobs/roberto-model/saved_models/model_last.torch_model"
+                "/home/akamath/Documents/stochastic_segmentation_networks/assets/saved_models/brainstem_MV.torch_model"
             ]
         },
         {
@@ -67,7 +103,7 @@
             "console": "integratedTerminal",
             "args": [
                 "--path-to-prediction-csv",
-                "/home/akamath/src/stochastic_segmentation_networks/jobs/roberto-model/inference/predictions/prediction.csv"
+                "/home/akamath/data/insel/variation/preprocessed-MV-hippocampi/jobs/inference_random_seed_5/predictions/prediction.csv"
             ]
         },
         {
@@ -78,7 +114,7 @@
             "console": "integratedTerminal",
             "args": [
                 "--path-to-prediction-csv",
-                "/home/akamath/src/stochastic_segmentation_networks/jobs/preprocessed-midl-apr3/test/predictions/prediction.csv",
+                "/home/akamath/data/insel/variation/preprocessed-MV-hippocampi/jobs/inference_random_seed_5/predictions/prediction.csv",
                 "--num-samples",
                 "200"
             ]

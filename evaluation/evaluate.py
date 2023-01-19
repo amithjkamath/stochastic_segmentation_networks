@@ -18,7 +18,7 @@ from visualisation.slice_visualizer import MostLoadedSliceVisualiser
 from metrics.distribution_statistics import DistributionStatistics
 import argparse
 
-class_names = ["background", "Brainstem", "Hippocampus L", "Hippocampus R"]
+class_names = ["background", "Brainstem"]
 class_mergers = None  # {'tumor core': {'non-enhancing tumor', 'enhancing tumor'}}
 DEVICE = 0
 
