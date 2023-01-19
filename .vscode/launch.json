@@ -18,6 +18,13 @@
             ]
         },
         {
+            "name": "prepare-data",
+            "type": "python",
+            "request": "launch",
+            "program": "/Users/amithkamath/repo/stochastic_segmentation_networks/SlicerRTBatchProcessing/ConvertToNifti.py",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "preprocess",
             "type": "python",
             "request": "launch",

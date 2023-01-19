@@ -1,0 +1,19 @@
+{
+  "BrainStem": 1,
+  "Cochlea_L": 2,
+  "Cochlea_R": 3,
+  "Eye_L": 4,
+  "Eye_R": 5,
+  "Hippocampus_L": 6,
+  "Hippocampus_R": 7,
+  "Lacrimal_L": 8,
+  "Lacrimal_R": 9,
+  "Lens_L": 10,
+  "Lens_R": 11,
+  "OpticChiasm": 12,
+  "OpticNerve_L": 13,
+  "OpticNerve_R": 14,
+  "Pituitary": 15,
+  "Retina_L": 16,
+  "Retina_R": 17
+}
